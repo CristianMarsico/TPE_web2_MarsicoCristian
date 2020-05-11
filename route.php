@@ -29,6 +29,10 @@ switch ($parametro[0]){
         $controller-> showGenres();
     break;
 
+    case 'bandas';
+        $controller = new MusicController();
+        $controller-> showBands(); //---->pido todas las bandas/artistas
+    break;
     
     default: echo 'operacion desconocida'; break;
 }

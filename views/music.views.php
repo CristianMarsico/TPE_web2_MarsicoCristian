@@ -26,8 +26,8 @@ class MusicViews{
             <form action="generos" method="get">
                 <a class="btn btn-outline-success" href="generos"> Generos </a>
             </form>
-            <form action="cursos" method="get">
-                <a class="btn btn-outline-success" href="cursos">Lista Completa</a>
+            <form action="bandas" method="get">
+                <a class="btn btn-outline-success" href="bandas">Lista Completa</a>
             </form>
         </nav>'; 
     }
@@ -55,6 +55,36 @@ class MusicViews{
         }
         echo '</ul>';  
 
+    }
+
+    //MUESTRO TODAS LAS BANDAS Y DETALLES ($bandas--> id_b, genero, album, nombre, canciones, año)
+    public function showAllBands($bandas){
+        //var_dump($bandas);die;
+        echo $this->doctype();
+        echo $this->nav();
+        echo '
+        <div class="list-group-item list-group-item-warning border border-dark">
+            Todos los Generos 
+        </div>';
+        
+        
+        echo '<div class="conteiner-fluid"> <div class="row">';    
+            foreach ($bandas as $bands) {
+                echo'
+                <div class="col-3">
+                <div class="card border-light mb-3" style="max-width: 18rem;"">
+                    <div class="card-header">'.$bands->genres.'</div>
+                     <img src="css/cover.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">'.$bands->name.'</h5>
+                            <p class="card-text">CD: '.$bands->album.'</p>
+                             <a class="btn btn-outline-dark" name="detalles" href="detalles/'.$bands->id_b.'"> Detalles </a> 
+                        </div>    
+                    </div>        
+                </div>       
+                ';
+            }
+        echo '</div>';
     }
 
 }
