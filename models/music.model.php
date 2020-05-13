@@ -19,7 +19,7 @@ class MusicModel{
 
     }
     
-    //ÉSTA FUNCION OBTIENE TODOS LOS GENEROS MUSICALES
+    //ÉSTA FUNCION OBTIENE SOLAMENTE GENEROS MUSICALES
     public function getGenres(){
        
         $db= $this->createConexion();
@@ -28,6 +28,35 @@ class MusicModel{
         $generos = $sentencia->fetchAll(PDO::FETCH_OBJ);
 
         return $generos;
+    }
+
+    public function getBandsForGenres($id){
+        //var_dump($id); die;
+        $db= $this-> createConexion();
+        $sentencia = $db->prepare("SELECT Ge.genres, Ba.id_b, Ba.name, Ba.album, Ba.songs, Ba.year
+                                    FROM bands Ba
+                                    INNER JOIN genres Ge
+                                    ON Ba.id_g_fk = Ge.id_g 
+                                    WHERE Ba.id_b = ?");
+        $sentencia->execute([$id]);
+        $generos = $sentencia-> fetchAll(PDO::FETCH_OBJ);
+        
+        return $generos;
+    }
+
+    //TRAIGO DE LA BASE DE DATOS PARA "LISTA COMPLETA-->DETALLES"
+    function getDetails($id_detalles){
+        
+        $db = $this-> createConexion();
+        $sentencia = $db->prepare("SELECT Ge.genres, Ba.id_b, Ba.name, Ba.album, Ba.songs, Ba.year
+                                    FROM bands Ba
+                                    INNER JOIN genres Ge
+                                    ON Ba.id_g_fk = Ge.id_g
+                                    WHERE Ba.id_b = ?");
+        $sentencia->execute([$id_detalles]);
+        $detalles = $sentencia-> fetchAll(PDO::FETCH_OBJ);
+
+        return $detalles;
     }
 
     public function getAllBands(){
@@ -46,6 +75,6 @@ class MusicModel{
 
         return $bandas;
     }
-
+    
 
 }

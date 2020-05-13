@@ -13,22 +13,17 @@ class MusicViews{
         </head>
         <body>';
 
-    return $html;
+        return $html;
         
     }
     public function nav(){
         echo '
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand"> <b>Mi musica de compu</b> </a>
-            <form action="home" method="get">
-                <a class="btn btn-outline-success" href="home"> Home </a>
-            </form>
-            <form action="generos" method="get">
-                <a class="btn btn-outline-success" href="generos"> Generos </a>
-            </form>
-            <form action="bandas" method="get">
-                <a class="btn btn-outline-success" href="bandas">Lista Completa</a>
-            </form>
+            <a class="navbar-brand"> <b>Mi musica de compu</b> </a>        
+            <a class="btn btn-outline-success" name="home" href="home"> Home </a>
+            <a class="btn btn-outline-success" name ="generos" href="generos"> Generos </a>
+            <a class="btn btn-outline-success" name= "bandas" href="bandas">Lista Completa</a>
+            
         </nav>'; 
     }
 
@@ -36,32 +31,51 @@ class MusicViews{
         echo $this->doctype();
         echo $this->nav();
     }
-    
-    //MUESTROS SOLAMENTE LOS GENEROS QUE TIENE LA TABLA
+ 
+
+    //MUESTROS "GENEROS"
     public function showAllGenres($generos){    
         
-        echo $this->doctype();
-        echo $this->nav();
-
+      
+        echo $this->home();
 
       echo '<ul>'; 
         foreach ($generos as $genres){
-            $idGenres = $genres->id_g;
             echo'
                <li>'.$genres->genres.'<a
-               
-                href ="generos_musicales/'.$idGenres.'">Ver</a></li>';
-            
+               href ="generosmusicales/'.$genres->id_g.'">Ver</a></li>';    
         }
         echo '</ul>';  
 
     }
-
-    //MUESTRO TODAS LAS BANDAS Y DETALLES ($bandas--> id_b, genero, album, nombre, canciones, año)
-    public function showAllBands($bandas){
-        //var_dump($bandas);die;
+    
+    //MUESTRO QUE TIENE EL "VER" DE "GENEROS" (GENEROS -> VER)
+    public function showBandsForGenres($generos){
         echo $this->doctype();
         echo $this->nav();
+        
+       $titulo = $generos[0]->genres; //obtengo una variable que uso en el titulo.
+     
+        echo'<h1>'.$titulo.'</h1>';//imprimo la variable
+
+        echo'<ol>';
+        foreach ($generos as $ge){
+            echo'
+               
+                <li>'.$ge-> name.'</li>
+                <li>'.$ge-> album.'</li>
+                <a class="btn btn-outline-dark" href="detalles/'.$ge->id_b.'">Ver CD</a>
+            ';
+            
+        }
+        echo'</ol>';   
+    }
+
+
+    //MUESTRO "LISTA COMPLETA" ($bandas--> id_b, genero, album, nombre, canciones, año)
+    public function showAllBands($bandas){
+        //var_dump($bandas);die;
+        echo $this->home();
         echo '
         <div class="list-group-item list-group-item-warning border border-dark">
             Todos los Generos 
@@ -78,13 +92,47 @@ class MusicViews{
                         <div class="card-body">
                             <h5 class="card-title">'.$bands->name.'</h5>
                             <p class="card-text">CD: '.$bands->album.'</p>
-                             <a class="btn btn-outline-dark" name="detalles" href="detalles/'.$bands->id_b.'"> Detalles </a> 
+                             <a class="btn btn-outline-dark" href="detalles/'.$bands->id_b.'"> Detalles </a> 
                         </div>    
                     </div>        
                 </div>       
                 ';
             }
         echo '</div>';
-    }
 
+    }
+     
+    //MUESTRO EL "DETALLES" DE "LISTA COMPLETA"
+     public function showDetails($detalles){
+        $canciones = $detalles[0]->songs; //en una variable meto las canciones
+        $temas = explode(",", $canciones);//hago un array de todas las canciones
+        
+       
+       
+       
+        foreach ($detalles as $datos) {
+             echo'
+                 <h3>Banda/Artista: '.$datos->name.'</h3><p>
+                 <h4>Album: '.$datos->album.'</h4>
+                 <h4>Año: '.$datos->year.'</h4>';
+                 echo'<ol>';
+                     foreach ($temas as $can) {
+                      echo' <li><b>'.$can.'</b></li>';                
+                      }
+                 echo'</ol>
+                 ';       
+        }      
+     
+
+    
+    }
+    
+
+    
+    
+   
+
+
+
+   
 }

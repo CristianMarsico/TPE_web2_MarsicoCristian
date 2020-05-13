@@ -18,10 +18,10 @@ $parametro = explode('/', $action);
 switch ($parametro[0]){
                                                                                                             
    
-    case 'home':  
+   case 'home':  
   //----CREO UN OBJETO Y LO INSTANCIO EN LA CLASE MUSICCONTROLLER             
         $controller = new MusicController();//------>llamo del controlador a la clase especifica donde van a estar las funciones
-        $controller-> showHome();//----> accedo a lo que tiene la funcion
+        $controller-> showHome();//----> accedo a lo que tiene la función
     break;
 
     case 'generos':
@@ -29,11 +29,27 @@ switch ($parametro[0]){
         $controller-> showGenres();
     break;
 
+    case 'generosmusicales'://------> Muestro lista solo por género musical
+        $controller = new MusicController();
+        $controller-> bandsForGenres($parametro[1]); 
+    break;
+
+    case 'detalles';
+        $controller = new MusicController();
+        $controller-> details($parametro[1]); 
+    break;
+
     case 'bandas';
         $controller = new MusicController();
-        $controller-> showBands(); //---->pido todas las bandas/artistas
+        $controller-> showBands(); //---->pido todas las bandas/artístas
     break;
     
+
+  
+    
+   
+   
+   
     default: echo 'operacion desconocida'; break;
 }
 
