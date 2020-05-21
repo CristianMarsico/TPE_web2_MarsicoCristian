@@ -1,7 +1,7 @@
 <?php
 require_once 'models/conection.db.model.php';
 
-class genresModel{
+class GenresModel{
 
     private $conection;
 
@@ -28,10 +28,11 @@ class genresModel{
                                     FROM bands Ba
                                     INNER JOIN genres Ge
                                     ON Ba.id_g_fk = Ge.id_g 
-                                    WHERE Ba.id_b = ?");
+                                    WHERE Ge.id_g = ?");
         $sentencia->execute([$id]);
         $generos = $sentencia-> fetchAll(PDO::FETCH_OBJ);
         
+     
         return $generos;
     }
 

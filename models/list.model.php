@@ -2,7 +2,7 @@
 
 require_once "models/conection.db.model.php";
 
-class listModel{
+class ListModel{
 
     private $conection;
     

@@ -2,13 +2,13 @@
 require_once 'models/list.model.php';
 require_once 'views/all.views.php';
 
-class listController{
+class ListController{
 
     private $model;
 
     public function __construct(){
-        $this->model = new listModel();
-        $this->views = new allViews();
+        $this->model = new ListModel();
+        $this->views = new AllViews();
     }
 
     //MUESTRA LA LISTA DE TODAS LAS BANDAS
