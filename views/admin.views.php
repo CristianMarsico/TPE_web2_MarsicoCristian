@@ -1,11 +1,23 @@
 <?php
 
+require_once 'libs/Smarty.class.php';
+
 class AdminViews{
 
-    public function viewForm (){
+    private $smarty;
 
-       //HEADER ADMIN
-        echo'
+    public function __construct(){
+        $this->smarty = new Smarty();
+    }
+    
+        
+    
+
+    public function viewForm (){
+        $this->smarty->display('templates/viewForm.tpl');
+
+       
+     /*   echo'
         <html lang="en">
         <head>
             <base href="' . BASE_URL . '">
@@ -37,6 +49,7 @@ class AdminViews{
         </div>
        ';    
         //INCLUIR FOOTER
+        */  
     }
     public function accessGranted($name){
         //INCLUIR HEADER
@@ -76,13 +89,14 @@ class AdminViews{
         ';
         //INCLUIR FOOTER
     }
-    public function showOptionsBands(){
+    public function showOptionsBands($bandas){
         //var_dump($_POST);die;
         echo'<html lang="en">
         <head>
             <base href="' . BASE_URL . '">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="css/stylos.css">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
             <title>Trabajo practico especial</title>
         </head>
@@ -96,7 +110,41 @@ class AdminViews{
         <form action="agregar_banda" method="POST">
             <label><b>Agregar una nueva banda a la BBDD</b></label>
             <button type="submit">Dar de Alta</button>
-        </form>';
+        </form>
+        
+        
+                <section class="container">
+                <table class="table">
+                    <caption>LISTA DE PRODUCTOS</caption>
+                    <thead>
+                        <tr>
+                            <th>nombre</th>
+                            <th>album</th>
+                            <th>canciones</th>
+                            <th>año</th>
+                            <th>Botones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista">
+                    <tr>';
+                    foreach ($bandas as $datos) {
+                        echo'<td>'.$datos->name.'</td>';
+                        echo'<td>'.$datos->album.'</td>';
+                        echo'<td>'.$datos->songs.'</td>';
+                        echo'<td>'.$datos->year.'</td>';
+                        echo'<td><a href = "eliminar_banda/'.$datos->id_b.'">eliminar<a>'." / ".'<a href = "editar_banda/'.$datos->id_b.'">editar<a></td>';
+                        echo' </tr>';
+                    }
+                echo' 
+                  </tbody>
+                </table>
+                 </section>
+        
+        
+        ';
+
+
+
     }
     public function showFormBand($bandas){
         //var_dump($bandas);

@@ -1,18 +1,27 @@
 <?php
 require_once 'models/admin.model.php';
 require_once 'views/admin.views.php';
+require_once 'models/list.model.php';
+require_once 'models/bands.model.php';
+
+
 
 class AdminController{
 
     private $modelGenres;
     private $modelAdmin;
+    private $listAdmin;
+    private $bandsModel;
 
     private $view;
+
 
     public function __construct(){
         $this->modelAdmin = new AdminModel();
         $this->view = new AdminViews();
         $this->modelGenres = new GenresModel();
+        $this->listAdmin = new ListModel();
+        $this->bandsModel = new BandsModel();
 
         
 
@@ -51,8 +60,9 @@ class AdminController{
     }
 
     public function show_A_B_M_Bands(){
-        
-        $this->view->showOptionsBands();
+      
+        $bandas = $this->listAdmin->getAllBands();
+        $this->view->showOptionsBands($bandas);
     }
 
     public function addBand(){
@@ -63,10 +73,13 @@ class AdminController{
     }
 
     public function saveBand(){
-        if (empty($_POST['nombre']) || empty($_POST['album']) || empty($_POST['canciones'])
-            || empty($_POST['año']) || empty($_POST['genero'])){
+        if (empty($_POST['nombre']) 
+            || empty($_POST['album']) 
+            || empty($_POST['canciones'])
+            || empty($_POST['año']) 
+            || empty($_POST['genero'])){
             echo'deber ingresar todos los datos';    
-            }
+        }
         else{
             $nombreCD = $this->modelAdmin->get($_POST['album']);
            // var_dump($name, $album);die;
@@ -78,10 +91,14 @@ class AdminController{
                 echo'bien';
             }
         }
-        header('Location: ' . BASE_URL . 'agregar_banda');
+        header('Location: ' . BASE_URL . 'ABMbandas');
     }
 
-     
+    public function removeBand($id){
+        $this->bandsModel->detele_band($id);
+        header('Location: ' . BASE_URL . 'ABMbandas');
 
-}// TODO CREAR EL ACCESO PERMITIDO Y EL DENEGADO
+    }
+}
+// TODO CREAR EL ACCESO PERMITIDO Y EL DENEGADO
 //TODO CREAR LOS TEMPLATES

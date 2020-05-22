@@ -77,6 +77,13 @@ switch ($parametro[0]){
         $controller-> saveBand();
     break;  
 
+    case 'eliminar_banda':
+        $controller = new AdminController();
+        $controller-> removeBand($parametro[1]);
+    break;  
+
+    
+
 
     
    
