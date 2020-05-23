@@ -82,6 +82,17 @@ switch ($parametro[0]){
         $controller-> removeBand($parametro[1]);
     break;  
 
+    case 'editar_banda';
+        $controller = new AdminController();
+        $controller->edit_Band($parametro[1]);
+    break;    
+
+    case 'guardar_edicion_banda';
+        $controller = new AdminController();
+        $controller->save_edit_band();
+    break;    
+    
+
     
 
 

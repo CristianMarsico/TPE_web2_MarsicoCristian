@@ -148,7 +148,16 @@ class AdminViews{
     }
     public function showFormBand($bandas){
         //var_dump($bandas);
-        echo'
+
+        echo'  <head>
+            <base href="' . BASE_URL . '">
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="css/stylos.css">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+            <title>Trabajo practico especial</title>
+        </head>
+        
             <h1>Lista</h1>
             <form action="guardar_banda" method="POST">
                 <label>nombre banda</label>
@@ -172,11 +181,62 @@ class AdminViews{
                    
                     <input type="submit">
             </form>
-
-
-
-
-        ';
+            ';
+        }
+        
+        public function showFormEditForBands($id){
+           
+          
+            echo'  <head>
+            <base href="' . BASE_URL . '">
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="css/stylos.css">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+            <title>Trabajo practico especial</title>
+        </head>
+            
+            
+        <h1>Aca podrá hacer cambios en la tabla</h1>';
+        echo' <section class="container">
+        
+        <table class="table">
+            <caption>LISTA DE PRODUCTOS</caption>
+                    <thead>
+                    <tr>
+                            <th>nombre</th>
+                            <th>album</th>
+                            <th>canciones</th>
+                            <th>año</th>
+                            <th>Botones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista">
+                    <tr>
+                    
+            
+                        ';
+                        
+                                
+                        echo' <form action="guardar_edicion_banda" method="POST">';
+                                foreach ($id as $datos) {
+                                    echo'<input type="hidden" name="id" value="'. $datos->id_b.'">';
+                                    echo'<td> <input type="text" name="nombre" value="'. $datos->name.'"></td>';
+                                    echo ' <td><input type="text" name="album" value="'. $datos->album.'"></td>';
+                                    echo ' <td><input type="text" name="cancion" value="'. $datos->songs.'"></td>';
+                                    echo '<td> <input type="text" name="año" value="'. $datos->year.'"></td>';
+                                    echo'<td><button type="submit">Modificar datos</button>';
+                                    echo' </tr>';
+                                }
+                                echo' </form>';
+                                echo' 
+            </tbody>
+            </table>
+             </section>';
+            
+          
+      
+   
     }
     
 }

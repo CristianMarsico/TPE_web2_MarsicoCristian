@@ -99,6 +99,30 @@ class AdminController{
         header('Location: ' . BASE_URL . 'ABMbandas');
 
     }
+
+    public function edit_Band($id){
+        $obtenerId = $this->bandsModel->get($id);
+       //var_dump($obtenerId);
+        $this->view->showFormEditForBands($obtenerId);
+    }
+
+    public function save_edit_band(){
+        if( empty($_POST['nombre'])
+            ||empty($_POST['album'])
+            ||empty($_POST['cancion'])
+            ||empty($_POST['año'])){
+            echo' los campos estan vacios';
+        }else{
+            $this->bandsModel->update($_POST['id'],
+                                      $_POST['nombre'],
+                                      $_POST['album'], 
+                                      $_POST['cancion'],
+                                      $_POST['año']);
+        }
+        header('Location: ' . BASE_URL . 'ABMbandas');
+
+    
+    }
 }
 // TODO CREAR EL ACCESO PERMITIDO Y EL DENEGADO
 //TODO CREAR LOS TEMPLATES

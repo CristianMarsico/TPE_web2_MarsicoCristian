@@ -50,5 +50,7 @@ class GenresModel{
 
         return $detalles;
     }
+    
+    
 
 }
