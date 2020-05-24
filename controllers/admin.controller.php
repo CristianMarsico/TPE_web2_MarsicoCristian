@@ -107,22 +107,53 @@ class AdminController{
     }
 
     public function save_edit_band(){
-        if( empty($_POST['nombre'])
+       // var_dump($_POST);
+        //echo empty($_POST['nombre']);
+       if( empty($_POST['nombre'])
             ||empty($_POST['album'])
             ||empty($_POST['cancion'])
-            ||empty($_POST['año'])){
+            ||empty($_POST['anio'])){
             echo' los campos estan vacios';
-        }else{
+        }
+        
+        
             $this->bandsModel->update($_POST['id'],
                                       $_POST['nombre'],
                                       $_POST['album'], 
                                       $_POST['cancion'],
-                                      $_POST['año']);
-        }
-        header('Location: ' . BASE_URL . 'ABMbandas');
+                                      $_POST['anio']);
+        
+      //  header('Location: ' . BASE_URL . 'ABMbandas');
 
     
     }
+
+    public function show_A_B_M_Genres(){
+       $generos = $this->modelGenres->getGenres();
+       $this->view->showOptionsGenres($generos);
+    }
+
+    public function addGenres(){
+        $this->view->showAddGenres();
+    }
+
+    public function saveGenre(){
+        if (empty($_POST['nombre_genero'])){
+           
+          //  echo'ingrese datos';
+        }else{
+           /* $generos = $this->modelGenres->getGenres();
+            if ($generos == $_POST['nombre_genero']){
+                var_dump($_POST);die;
+                echo'el genero ya existe';
+            }else{
+                $this->modelGenres->inset($_POST['nombre_genero']);
+                echo'genero guardado';
+            }*/
+          $this->modelGenres->inset($_POST['nombre_genero']);
+          var_dump($_POST);
+        }  
+    }
+    // TODO CREAR EL ACCESO PERMITIDO Y EL DENEGADO
+    //TODO CREAR LOS TEMPLATES
 }
-// TODO CREAR EL ACCESO PERMITIDO Y EL DENEGADO
-//TODO CREAR LOS TEMPLATES

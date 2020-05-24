@@ -90,7 +90,25 @@ switch ($parametro[0]){
     case 'guardar_edicion_banda';
         $controller = new AdminController();
         $controller->save_edit_band();
-    break;    
+    break;   
+    
+    case 'ABMgeneros';
+        $controller = new AdminController();
+        $controller->show_A_B_M_Genres();
+    break;   
+
+    case 'agregar_genero';
+        $controller = new AdminController();
+        $controller->addGenres();
+    break;   
+    
+    case 'guardar_genero';
+        $controller = new AdminController();
+        $controller->saveGenre();
+    break; 
+    
+
+   
     
 
     

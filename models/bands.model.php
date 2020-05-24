@@ -26,10 +26,11 @@ class BandsModel{
     }
 
     public function update($id, $nombre, $album, $cancion, $anio){
+      //  var_dump($id, $nombre, $album, $cancion, $anio );
         $db = $this->conection->createConexion();
-        $sentencia = $db->prepare("UPDATE bands SET 'name' = ?, 
-                                'album' = ?, 'songs' = ?, 'year' = ? WHERE id_b = $id");
-        $sentencia->execute([$nombre, $album, $anio, $cancion]);
-        $sentencia->fetchAll(PDO::FETCH_OBJ);
+        $sentencia = $db->prepare("UPDATE  `bands` SET  `name` = ?, 
+                                 `album` = ?,  `songs` = ?, `year` = ? WHERE `id_b` = ?");
+        $sentencia->execute([$nombre, $album, $cancion, $anio, $id]);
+       
     }
 }

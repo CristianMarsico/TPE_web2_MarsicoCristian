@@ -50,6 +50,11 @@ class GenresModel{
 
         return $detalles;
     }
+    public function inset ($genero){
+        $db= $this->conection->createConexion();
+        $sentencia = $db->prepare("INSERT INTO genres ('genres') VALUES (?)");
+        $sentencia->execute([$genero]); 
+    }
     
     
 
