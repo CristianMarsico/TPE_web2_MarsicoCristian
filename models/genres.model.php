@@ -50,10 +50,31 @@ class GenresModel{
 
         return $detalles;
     }
-    public function inset ($genero){
+    public function insert ($genero){
         $db= $this->conection->createConexion();
-        $sentencia = $db->prepare("INSERT INTO genres ('genres') VALUES (?)");
-        $sentencia->execute([$genero]); 
+        $sentencia = $db->prepare("INSERT INTO genres (genres) VALUES (?)");
+        return $sentencia->execute([$genero]); 
+    }
+
+    public function delete($id){
+        $db= $this->conection->createConexion();
+        $sentencia = $db->prepare("DELETE FROM genres WHERE id_g = ?");
+        $sentencia->execute([$id]);
+    }
+
+    public function get($id){
+        $db = $this->conection->createConexion();
+        $sentencia= $db->prepare("SELECT * FROM genres WHERE id_g = ?");
+        $sentencia->execute([$id]);
+        $obtenerId = $sentencia->fetchAll(PDO::FETCH_OBJ);
+
+        return $obtenerId;
+    }
+
+    public function update ($id, $nombre){
+        $db = $this->conection->createConexion();
+        $sentencia = $db->prepare ("UPDATE `genres` SET `genres` = ? WHERE `id_g` = ?");
+        $sentencia->execute([$nombre, $id]);
     }
     
     

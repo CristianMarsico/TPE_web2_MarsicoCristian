@@ -30,8 +30,10 @@ class GenresController{
       
        $generos = $this->model-> getCdsByGenres($id);
        //var_dump($generos);die;
-       
-       $this->views-> showBandsForGenres($generos);
+       if(empty($generos)){
+            $this->views->error();die;
+        }
+    $this->views-> showBandsForGenres($generos);
     }
 
    //ESTA FUNCION TRAE LOS DETALLES DE TODOS LOS ALBUMS (LISTA COMPLETA->DETALLES)

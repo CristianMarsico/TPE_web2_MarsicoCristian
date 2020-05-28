@@ -34,16 +34,17 @@ class AdminModel{
         $nombreCD = $sentencia->fetch(PDO::FETCH_OBJ);
 
         return $nombreCD;
-        var_dump($nombreCD);die;
+        
     }
 
     public function insert ($nombre, $album, $canciones, $año, $generos){
         $db = $this->conection->createConexion();
-        $sentencia = $db->prepare ("INSERT INTO bands (name, album,songs, year, id_g_fk) VALUES (?,?,?,?,?)");
-        $sentencia->execute([$nombre, $album, $canciones, $año, $generos]);
-        $bandas = $sentencia->fetchAll(PDO::FETCH_OBJ);
+        $sentencia = $db->prepare ('INSERT INTO bands (name, album, songs, year, id_g_fk) VALUES (?,?,?,?,?)');
+       return $sentencia->execute([$nombre, $album, $canciones, $año, $generos]);
+      //  $sentencia->fetchAll(PDO::FETCH_OBJ);
 
-        return $bandas;
+        
+       
     }
     
         

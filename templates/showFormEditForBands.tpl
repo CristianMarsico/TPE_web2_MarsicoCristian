@@ -1,5 +1,8 @@
 {include 'templates/header.tpl'}
-
+    
+    <div>
+        <a class="navbar-brand" href="cerrar_sesion"><b>Cerrar Sesion</b></a>
+    </div>
     <h1>Aca podrá hacer cambios en la tabla</h1>
 {include 'templates/head.table.tpl'}
 

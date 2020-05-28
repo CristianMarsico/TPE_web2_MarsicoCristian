@@ -1,6 +1,9 @@
 {include 'templates/header.tpl'}
     
     <div>
+        <a class="navbar-brand" href="cerrar_sesion"><b>Cerrar Sesion</b></a>
+    </div>
+    <div>
         <h2>ABM DE LOS GENEROS</h2>
         <b class="navbar-brand">En esta sección usted podrá hacer ALTAS, BAJAS y MODIFICACIONES de Generos.</b><br>
         <b class="navbar-brand">Seleccione una OPCIÓN.</b>

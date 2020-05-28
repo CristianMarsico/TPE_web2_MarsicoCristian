@@ -12,8 +12,14 @@
                             <label><b>Contraseña</b></label>
                              <input type="password" class="form-control" name="pass" placeholder="Password">
                         </div>
+                        {if $error}
+                            <div class = "alert alert-danger">
+                              {$error}
+                            </div>
+                        {/if}
                         <button type="submit" class="btn btn-primary">Cargar</button>   
                     </form>
                 </div>
             </div>
         </div>
+      

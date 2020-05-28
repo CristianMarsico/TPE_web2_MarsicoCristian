@@ -1,84 +1,67 @@
 <?php
+require_once 'libs/Smarty.class.php';
 class allViews{
 
-    public function header(){
-        $html = '<!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <base href="' . BASE_URL . '">
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-            <title>Trabajo practico especial</title>
-        </head>
-        <body>';
-        echo '
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand"> <b>Mi musica de compu</b> </a>        
-            <a class="btn btn-outline-success" name="home" href="home"> Home </a>
-            <a class="btn btn-outline-success" name ="generos" href="generos"> Generos </a>
-            <a class="btn btn-outline-success" name= "bandas" href="bandas">Lista Completa</a>     
-        </nav>'; 
+    private $smarty;
 
-        return $html;        
+    public function __construct(){
+        $this->smarty = new Smarty();
+    }
+
+
+    public function header(){
+        $this->smarty->display('templates/headerHome.tpl'); 
+
+
     }
     
-
     public function home(){
-        echo $this->header();        
+        echo $this->header();
+        echo'<div class= "container">
+        <div class="row">
+        <div class="col-6">
+        <img src="img/portada.jpg" class="img-fluid" alt="portada del sitio"  >
+        </div>
+        <div class="col-6">
+        <img src="img/portada2.jpg" class="img-fluid" alt="portada del sitio"  >
+        </div>
+        <div class="col-6">
+        <img src="img/portada3.jpg" class="img-fluid" alt="portada del sitio"  >
+        </div>
+        <div class="col-6">
+        <img src="img/portada4.jpg" class="img-fluid" alt="portada del sitio"  >
+        </div>
+        </div>
+        </div>
+        
+        </body>
+        </html>      ';  
     }
  
 
     //MUESTROS "GENEROS"
-    public function showAllGenres($detalles){    
-        
-      
-        echo $this->home();
-
-      echo '<ul>'; 
-        foreach ($detalles as $genres){
-            echo'
-               <li>'.$genres->genres.'<a
-               href ="generosmusicales/'.$genres->id_g.'">Ver</a></li>';    
-        }
-        echo '</ul>';  
-
+    public function showAllGenres($detalles){ 
+       // var_dump($detalles) ;die;
+       $this->smarty->assign('detalles', $detalles);
+      // $this->smarty->assign('error', $detalles);
+       $this->smarty->display('templates/showAllGenres.tpl'); 
     }
     
     //MUESTRO QUE TIENE EL "VER" DE "GENEROS" (GENEROS -> VER)
     public function showBandsForGenres($detalles){
-        //var_dump($detalles);die;
-        echo $this->home();     
-       $titulo = $detalles[0]->genres; //obtengo una variable que uso en el titulo.
-     
-        echo'
-             <div class="card-header">    
-                <h1 >'.$titulo.'</h1>';          //imprimo la variable
-        echo'</div>';
-        echo '<div class="conteiner-fluid"> <div class="row">';
-        foreach ($detalles as $ge){
-            //var_dump($detalles);die;
-            echo'
-                <div class="col-3">
-                    <div class="card border-light mb-3" style="max-width: 18rem;"">
-                        <img src="css/cover.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">'.$ge->name.'</h5>
-                            <p class="card-text">CD: '.$ge->album.'</p>
-                            <a class="btn btn-outline-dark" href="detalles/'.$ge->id_b.'"> vercd </a> 
-                        </div>    
-                    </div>        
-                </div>       
-            ';
-        }
-        echo '</div>';
+       $this->smarty->assign('detalles', $detalles);
+       $this->smarty->display('templates/showBandsForGenres.tpl');
     }
 
 
     //MUESTRO "LISTA COMPLETA" ($bandas--> id_b, genero, album, nombre, canciones, año)
     public function showAllBands($bandas){
+        $this->smarty->assign('bandas', $bandas);
+        $this->smarty->display('templates/showAllBands.tpl');
         //var_dump($bandas);die;
-        echo $this->home();
+      
+      
+      /*  echo $this->header();
         echo '
         <div class="list-group-item list-group-item-warning border border-dark">
             Todos los Generos 
@@ -103,12 +86,12 @@ class allViews{
                 ';
             }
         echo '</div>';
-
+            */
     }
      
     //MUESTRO EL "DETALLES" DE "LISTA COMPLETA"
      public function showDetails($detalles){
-        echo $this->home();
+        echo $this->header();
         $canciones = $detalles[0]->songs; //en una variable meto las canciones
         $temas = explode(",", $canciones);//hago un array de todas las canciones
         
@@ -132,6 +115,9 @@ class allViews{
         echo'</div>';    
     }
 
+public function error(){
+    echo'falta cd';
+}
     //----------------------------------------ADMINISTRADOR-------------------------------------->
    
 }

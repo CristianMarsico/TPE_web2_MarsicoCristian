@@ -25,7 +25,7 @@ class BandsModel{
        return $obtenerId;
     }
 
-    public function update($id, $nombre, $album, $cancion, $anio){
+    public function update($nombre, $album, $cancion, $anio, $id){
       //  var_dump($id, $nombre, $album, $cancion, $anio );
         $db = $this->conection->createConexion();
         $sentencia = $db->prepare("UPDATE  `bands` SET  `name` = ?, 

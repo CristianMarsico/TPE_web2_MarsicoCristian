@@ -15,11 +15,15 @@ class AdminViews{
         $this->smarty->display('templates/header.tpl'); 
     }
     //ACA SE MUESTRA EL FORM DE ACCESO
-    public function viewForm (){
+    public function viewForm ($error=null){
+      // var_dump($error);die;
+       $this->smarty->assign('error', $error);
+
         $this->smarty->display('templates/viewForm.tpl');
     }
-    public function accessGranted($name){
-       $this->smarty->assign('name', $name);
+    public function accessGranted($user){
+       // var_dump($msg);die;
+       $this->smarty->assign('user', $user);
        $this->smarty->display('templates/accessGranted.tpl');
     }
     //ACA LAS OPCIONES DE ABM   
@@ -28,13 +32,14 @@ class AdminViews{
     }
     //MOSTRAMOS LA TABLA CON LOS BOTONES
     public function showOptionsBands($bandas){
-        $this->smarty->assign('bandas', $bandas);
+        $this->smarty->assign('bandas', $bandas);   
         $this->smarty->display('templates/showOptionsBands.tpl');
     }
     
     //ACA MUESTRO EL FORM PARA AGREGAR
-    public function showFormBand($bandas){ //mejorar
+    public function showFormBand($bandas, $error=null){ //mejorar
         $this->smarty->assign('bandas', $bandas);
+        $this->smarty->assign('error', $error);
         $this->smarty->display('templates/showFormBand.tpl');
     }
     //MOSTRAMOS EL FORM PARA EDITAR BANDA    
@@ -48,8 +53,14 @@ class AdminViews{
         $this->smarty->display('templates/showOptionsGenres.tpl');
     }
     //ACCEDEMOS AL AGREGAR DE LA TABLA GENEROS
-    public function showAddGenres(){
+    public function showAddGenres($error=null){
+        $this->smarty->assign('error', $error);
         $this->smarty->display('templates/showAddGenres.tpl');
+    }
+
+    public function showFormEditForGenres($id){
+        $this->smarty->assign('id', $id);
+        $this->smarty->display('templates/showFormEditForGenres.tpl');
     }
 
 

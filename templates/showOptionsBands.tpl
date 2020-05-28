@@ -1,4 +1,8 @@
 {include 'templates/header.tpl'}
+    
+    <div>
+        <a class="navbar-brand" href="cerrar_sesion"><b>Cerrar Sesion</b></a>
+    </div>
     <div>
         <h1>ABM DE LAS BANDAS</h1>
         <b class="navbar-brand">En esta sección usted podrá hacer ALTAS, BAJAS y MODIFICACIONES de Bandas.</b><br>
@@ -16,8 +20,9 @@
                 <td>{$datos->songs}</td>
                 <td>{$datos->year}</td>
                 <td><a href = "eliminar_banda/{$datos->id_b}">eliminar<a> | <a href =" editar_banda/{$datos->id_b}">editar<a></td>
-            </tr>
+            </tr>            
         {/foreach}
         </tbody>
      </table>
     </section>
+    

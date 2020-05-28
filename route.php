@@ -2,6 +2,8 @@
 require_once 'controllers/genres.controller.php';
 require_once 'controllers/list.controller.php';
 require_once 'controllers/admin.controller.php';
+require_once 'controllers/user.controller.php';
+
 
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
 
@@ -53,8 +55,13 @@ switch ($parametro[0]){
     break;
 
     case 'logging':
-        $controller = new AdminController();
-        $controller-> loggin();
+        $controller = new UserController();
+        $controller-> logging();
+    break;
+
+    case 'cerrar_sesion':
+        $controller = new UserController();
+        $controller-> logout();
     break;    
 
     case 'tareas': //recien estamos en bandas. falta generos
@@ -106,18 +113,22 @@ switch ($parametro[0]){
         $controller = new AdminController();
         $controller->saveGenre();
     break; 
-    
 
-   
-    
+    case 'eliminar_genero';
+        $controller = new AdminController();
+        $controller->deleteGenre($parametro[1]);
+    break; 
 
-    
+    case 'editar_genero';
+        $controller = new AdminController();
+        $controller->editGenre($parametro[1]);
+    break; 
 
-
+    case 'guardar_edicion_genero';
+        $controller = new AdminController();
+        $controller->save_edit_genre();
+    break; 
     
-   
-   
-   
     default: echo 'operacion desconocida'; break;
 }
 
