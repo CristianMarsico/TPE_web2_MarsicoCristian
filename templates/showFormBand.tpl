@@ -1,36 +1,51 @@
 {include 'templates/header.tpl'}
-    
-    <div>
-        <a class="navbar-brand" href="cerrar_sesion"><b>Cerrar Sesion</b></a>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <nav class="navbar navbar-light bg-light">
+                <a class="navbar-brand">{$user}</a>
+                <a class="btn btn-outline-dark" href="ABMbandas">volver</a>
+                <a class="btn btn-outline-dark" href="cerrar_sesion">Logout</a>
+            </nav>
+        </div>
     </div>
-     <h1>Lista</h1>
+</div>
+<section class="container">
+    <table class="table">
+        <caption>Agregar Genero</caption>
+        <thead>
+            <tr>
+                <th>Artista</th>
+                <th>Nombre CD</th>
+                <th>canciones</th>
+                <th>año</th>
+                <th>Genero</th>
+                <th>Botón</th>
+            </tr>
+
+
+        </thead>
         <form action="guardar_banda" method="POST">
-          <label>nombre banda</label>
-          <input type="text" name="nombre" placeholder="ingrese nombre de la banda" >
+            <tbody id="lista">
+                <tr>
+                    <td> <input type="text" name="nombre"></td>
+                    <td> <input type="text" name="album"></td>
+                    <td> <input type="text" name="canciones"></td>
+                    <td> <input type="text" name="anio"></td>
+                    <td><select name="genero">
+                            {foreach from=$bandas item= $band}
+                                <option>{$band->id_g}</option>
+                            {/foreach}
+                        </select></td>
 
-          <label>nombre del album</label>
-          <input type="text" name="album" placeholder="ingrese nombre del cd" >
-
-           <label>Ingrese temas del cd</label>
-           <input type="text" name="canciones" placeholder="ingrese temas del cd separado por ," >
-
-           <label>Ingrese año</label>
-           <input type="text" name="anio">
-
-           <label>Genero</label>
-           <select name="genero">
-                {foreach from=$bandas item= $band}
-                   <option>{$band->id_g}</option>
-                {/foreach}
-            </select>
-                   
-            <input type="submit">
-
+                    <td><button type="submit">Agregar datos</button></td>
+                </tr>
+            </tbody>
             {if $error}
                 <div class="alert alert-danger">
-                 {$error}
+                    {$error}
                 </div>
             {/if}
         </form>
-
-       
+    </table>
+</section>

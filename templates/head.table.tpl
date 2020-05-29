@@ -1,5 +1,5 @@
 <section class="container">
-        <table class="table">
+    <table class="table">
         <caption>LISTA DE PRODUCTOS</caption>
         <thead>
             <tr>
@@ -10,4 +10,4 @@
                 <th>Botones</th>
             </tr>
         </thead>
-            <tr>
+        <tr>

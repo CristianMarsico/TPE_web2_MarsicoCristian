@@ -15,6 +15,11 @@ Class PublicController{
         $this->views-> home();
     }
 
+    public function showError($msg){
+        $this->views->show_Error($msg);
+    }
+
+
     public function showGenres(){      
         //model = new MusicModel();
         $generos= $this->model -> getGenres();//pido los generos
@@ -35,11 +40,11 @@ Class PublicController{
 
      public function details($id_detalles){
     
-        $detalles = $this->model-> getDetails($id_detalles);
+        $valor = $this->model-> getDetails($id_detalles);
         
-        $canciones = $detalles[0]->songs; //en una variable meto las canciones
+        $canciones = $valor[0]->songs; //en una variable meto las canciones
         $temas = explode(",", $canciones);//hago un array de todas las canciones
-        $this->views-> showDetails($detalles, $temas);
+        $this->views-> showDetails($valor, $temas);
     }
 
      //MUESTRA LA LISTA DE TODAS LAS BANDAS
