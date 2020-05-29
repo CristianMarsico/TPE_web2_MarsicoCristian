@@ -1,17 +1,14 @@
-<?php
-require_once 'models/conection.db.model.php';
-
-class GenresModel{
-
-    private $conection;
+ <?php
+require_once "models/conection.db.model.php";
+class PublicModel{
+     private $conection;
 
     public function __construct(){
         $this->conection = new Conection_db_Model();
     }
-
-   //ÉSTA FUNCION OBTIENE SOLAMENTE GENEROS MUSICALES
+    //ÉSTA FUNCION OBTIENE SOLAMENTE GENEROS MUSICALES
     public function getGenres(){
-       
+        
         $db= $this->conection->createConexion();
         $sentencia = $db->prepare("SELECT * FROM genres");
         $sentencia->execute();
@@ -19,9 +16,8 @@ class GenresModel{
 
         return $generos;
     }
-    
-    //OBTENGO LOS CD'S POR GENEROS
-   public function getCdsByGenres($id){
+
+    public function getCdsByGenres($id){
         //var_dump($id); die;
         $db= $this->conection-> createConexion();
         $sentencia = $db->prepare("SELECT Ge.genres, Ba.id_b, Ba.name, Ba.album, Ba.songs, Ba.year, Ba.image
@@ -31,8 +27,7 @@ class GenresModel{
                                     WHERE Ge.id_g = ?");
         $sentencia->execute([$id]);
         $generos = $sentencia-> fetchAll(PDO::FETCH_OBJ);
-        
-     
+
         return $generos;
     }
 
@@ -50,33 +45,21 @@ class GenresModel{
 
         return $detalles;
     }
-    public function insert ($genero){
+
+    public function getAllBands(){
+
         $db= $this->conection->createConexion();
-        $sentencia = $db->prepare("INSERT INTO genres (genres) VALUES (?)");
-        return $sentencia->execute([$genero]); 
+        $sentencia = $db->prepare ("SELECT Ba.id_b, Ba.name, Ba.album, Ba.songs, Ba.year, Ba.image, Ge.genres 
+                                   FROM bands Ba
+                                   INNER JOIN genres Ge
+                                   ON Ba.id_g_fk = Ge.id_g ");
+          //SELECT --> DE CADA TABLA AGARRO LO QUIERO TRAER Y LE ASIGNO UN PREFIJO
+          //FROM --> DE LA TABLA "BANDS" QUE LE ASIGNE PREFIJO "BA"(QUE TIENE EL FORANIO)
+          //INNER JOIN --> UNIDO A LA TABLA "GENRES" QUE LE DI PREFIJO "GE"
+          //ON --> DONDE LA TABLA BANDS(USO PREFIJO)CON EL NOMBRE DEL FORANIO (ID_G_FK) SEA IGUAL A LA TABLA GENRES(USO PREFIJO) CON EL NOMBRE DEL ID(ID_G)                        
+        $sentencia->execute();
+        $bandas = $sentencia->fetchAll(PDO::FETCH_OBJ);
+
+        return $bandas;
     }
-
-    public function delete($id){
-        $db= $this->conection->createConexion();
-        $sentencia = $db->prepare("DELETE FROM genres WHERE id_g = ?");
-        $sentencia->execute([$id]);
-    }
-
-    public function get($id){
-        $db = $this->conection->createConexion();
-        $sentencia= $db->prepare("SELECT * FROM genres WHERE id_g = ?");
-        $sentencia->execute([$id]);
-        $obtenerId = $sentencia->fetchAll(PDO::FETCH_OBJ);
-
-        return $obtenerId;
-    }
-
-    public function update ($id, $nombre){
-        $db = $this->conection->createConexion();
-        $sentencia = $db->prepare ("UPDATE `genres` SET `genres` = ? WHERE `id_g` = ?");
-        $sentencia->execute([$nombre, $id]);
-    }
-    
-    
-
 }

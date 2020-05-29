@@ -42,12 +42,19 @@ class AdminModel{
         $sentencia = $db->prepare ('INSERT INTO bands (name, album, songs, year, id_g_fk) VALUES (?,?,?,?,?)');
        return $sentencia->execute([$nombre, $album, $canciones, $año, $generos]);
       //  $sentencia->fetchAll(PDO::FETCH_OBJ);
-
-        
-       
     }
-    
-        
+
+    public function insert_user($nombre, $user, $pass){
+        $db= $this->conection->createConexion();
+        $sentencia = $db->prepare('INSERT INTO admin (name_admin, user_name, pass) VALUES (?,?,?)');
+        return $sentencia->execute([$nombre, $user, $pass]);
+    }       
+
+    public function delete_user($id){
+        $db= $this->conection->createConexion();
+        $sentencia= $db->prepare('DELETE FROM admin WHERE id_admin = ?');
+        $sentencia->execute([$id]);
+    }
     
 
 

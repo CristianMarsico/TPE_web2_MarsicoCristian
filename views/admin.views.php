@@ -63,5 +63,14 @@ class AdminViews{
         $this->smarty->display('templates/showFormEditForGenres.tpl');
     }
 
+    public function showOptionsUsers($admin){
+      //  var_dump($admin);die;
+        $this->smarty->assign('admin', $admin);
+        $this->smarty->display('templates/showOptionsUsers.tpl');
+    }
 
+    public function showAddAdmin($error=null){
+        $this->smarty->assign('error', $error);
+        $this->smarty->display('templates/showAddAdmin.tpl');
+    }
 }

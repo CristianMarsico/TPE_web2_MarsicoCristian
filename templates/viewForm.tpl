@@ -2,6 +2,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
+                    <nav class="navbar navbar-light bg-light">
+                        <a class="navbar-brand">Administrador</a>
+                        <a class="btn btn-dark" href="home">Volver</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
                     <h3 class="text-center bg-danger text-white">Acceso privado</h3>
                     <form action= "logging" method= "POST">
                         <div class="form-group">

@@ -1,6 +1,6 @@
 <?php
+require_once 'controllers/public.controller.php';
 require_once 'controllers/genres.controller.php';
-require_once 'controllers/list.controller.php';
 require_once 'controllers/admin.controller.php';
 require_once 'controllers/user.controller.php';
 
@@ -24,27 +24,27 @@ switch ($parametro[0]){
    
    case 'home':  
   //----CREO UN OBJETO Y LO INSTANCIO EN LA CLASE GETCONTROLLER             
-        $controller = new GenresController();//------>llamo del controlador a la clase especifica donde van a estar las funciones
+        $controller = new PublicController();//------>llamo del controlador a la clase especifica donde van a estar las funciones
         $controller-> showHome();//----> accedo a lo que tiene la función
     break;
 
     case 'generos':
-        $controller = new GenresController();
+        $controller = new PublicController();
         $controller-> showGenres();
     break;
 
     case 'generosmusicales'://------> Muestro lista solo por género musical
-        $controller = new GenresController();
+        $controller = new PublicController();
         $controller-> CdsByGenres($parametro[1]); 
     break;
 
     case 'detalles':
-        $controller = new GenresController();
+        $controller = new PublicController();
         $controller-> details($parametro[1]); 
     break;
 
     case 'bandas':
-        $controller = new ListController();
+        $controller = new PublicController();
         $controller-> showBands(); //---->pido todas las bandas/artístas
     break;
 
@@ -128,7 +128,31 @@ switch ($parametro[0]){
         $controller = new AdminController();
         $controller->save_edit_genre();
     break; 
+
+    case 'ABMuser';
+        $controller = new AdminController();
+        $controller->show_A_B_M_Users();
+    break;
+
+    case 'agregar_usuario';
+        $controller = new AdminController();
+        $controller->addUsers();
+    break;
+    
+    case 'guardar_user';
+      $controller = new AdminController();
+      $controller->saveUser();
+    break;  
+
+    case 'eliminar_usuario';
+      $controller = new AdminController();
+      $controller->deleteUser($parametro[1]);
+    break;  
+
     
     default: echo 'operacion desconocida'; break;
 }
 
+//
+//
+//editar_usuario

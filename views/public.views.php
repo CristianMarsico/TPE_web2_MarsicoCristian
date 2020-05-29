@@ -1,18 +1,15 @@
 <?php
 require_once 'libs/Smarty.class.php';
-class allViews{
 
+class PublicViews{
     private $smarty;
 
     public function __construct(){
         $this->smarty = new Smarty();
     }
-
-
+    
     public function header(){
         $this->smarty->display('templates/headerHome.tpl'); 
-
-
     }
     
     public function home(){
@@ -40,7 +37,7 @@ class allViews{
  
 
     //MUESTROS "GENEROS"
-    public function showAllGenres($detalles){ 
+    public function showAllGenres($detalles, $error=null){ 
        // var_dump($detalles) ;die;
        $this->smarty->assign('detalles', $detalles);
       // $this->smarty->assign('error', $detalles);
@@ -58,48 +55,28 @@ class allViews{
     public function showAllBands($bandas){
         $this->smarty->assign('bandas', $bandas);
         $this->smarty->display('templates/showAllBands.tpl');
-        //var_dump($bandas);die;
-      
-      
-      /*  echo $this->header();
-        echo '
-        <div class="list-group-item list-group-item-warning border border-dark">
-            Todos los Generos 
-        </div>';
-        
-        
-        echo '<div class="conteiner-fluid"> <div class="row">';    
-            foreach ($bandas as $bands) {
-               
-                echo'
-                <div class="col-3">
-                <div class="card border-light mb-3" style="max-width: 18rem;"">
-                    <div class="card-header">'.$bands->genres.'</div>
-                     <img src="css/cover.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">'.$bands->name.'</h5>
-                            <p class="card-text">CD: '.$bands->album.'</p>
-                             <a class="btn btn-outline-dark" href="detalles/'.$bands->id_b.'"> Detalles </a> 
-                        </div>    
-                    </div>        
-                </div>       
-                ';
-            }
-        echo '</div>';
-            */
     }
      
     //MUESTRO EL "DETALLES" DE "LISTA COMPLETA"
-     public function showDetails($detalles){
-        echo $this->header();
-        $canciones = $detalles[0]->songs; //en una variable meto las canciones
-        $temas = explode(",", $canciones);//hago un array de todas las canciones
-        
+     public function showDetails($detalles, $temas = null){
+        // var_dump($detalles);die;
+       //  $this->smarty->assign('datos', $detalles);
+      //   $this->smarty->assign('can', $temas);
+       // $this->smarty->display('templates/showDetails.tpl');
+
+
+     echo $this->header();
+
         echo'<div class="card" style="width: 18rem;">';
         foreach ($detalles as $datos) {
             
-            echo'
-            <img src="css/cover.jpg" class="card-img-top" alt="...">
+        
+            if (!empty($datos->image)){
+        echo'        <img src="'.$datos->image.'" class="card-img-top" alt="...">';
+            }else{
+            echo'    <img src="images/cds/error.jpg" class="card-img-top" alt="...">';
+            }
+        echo'    <img src="css/cover.jpg" class="card-img-top" alt="...">
             <div class="card-body">
                 <h3 class="card-title">'.$datos->name.'</h3>
                 <h5 class="card-title">Album: '.$datos->album.'</h5>
@@ -114,10 +91,13 @@ class allViews{
         } 
         echo'</div>';    
     }
+    public function error(){
+      echo'falta cd';
+    }
+}
 
-public function error(){
-    echo'falta cd';
-}
-    //----------------------------------------ADMINISTRADOR-------------------------------------->
-   
-}
+
+
+
+
+

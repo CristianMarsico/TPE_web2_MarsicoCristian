@@ -1,14 +1,15 @@
 <?php
 require_once 'models/admin.model.php';
 require_once 'views/admin.views.php';
-require_once 'models/list.model.php';
 require_once 'models/bands.model.php';
+require_once 'models/public.model.php';
+
 
 class AdminController{
 
     private $modelGenres;
     private $modelAdmin;
-    private $listAdmin;
+    private $publicModel;
     private $bandsModel;
     private $view;
 
@@ -16,8 +17,9 @@ class AdminController{
         $this->modelAdmin = new AdminModel();
         $this->view = new AdminViews();
         $this->modelGenres = new GenresModel();
-        $this->listAdmin = new ListModel();
+        $this->publicModel = new PublicModel(); 
         $this->bandsModel = new BandsModel();
+
         /**
          * no pongo el checklogged acá porque no me permitiria
          * acceso a la vista del form
@@ -49,7 +51,7 @@ class AdminController{
     public function show_A_B_M_Bands(){
         $this->checklogged();
       
-        $bandas = $this->listAdmin->getAllBands();
+        $bandas = $this->publicModel->getAllBands();
         $this->view->showOptionsBands($bandas);
     }
 
@@ -71,8 +73,6 @@ class AdminController{
             || empty($_POST['genero'])){
         $genero = $this->modelGenres->getGenres();//ACA TENGO QUE PEDIR DE GENEROS
         $this->view->showFormBand($genero, "Ud debe completar todos los campos");
-       
-        //var_dump($bandas); die;
         }
         else{
             $nombre = $_POST['nombre'];
@@ -103,7 +103,7 @@ class AdminController{
         $this->view->showFormEditForBands($obtenerId);
     }
 
-    public function save_edit_band(){//AGREGAR CONDICIONES
+    public function save_edit_band(){
         $this->checklogged();
      
        if( empty($_POST['nombre'])
@@ -134,7 +134,7 @@ class AdminController{
         $this->view->showAddGenres();
     }
 
-    public function saveGenre(){ //AGREGAR CONDICIONES
+    public function saveGenre(){
         $this->checklogged();
 
         if (empty($_POST['nombre_genero'])){
@@ -173,5 +173,42 @@ class AdminController{
              header('Location: ' . BASE_URL . 'ABMgeneros');
         }
     }
-    
+
+    public function show_A_B_M_Users(){
+        $this->checklogged();
+
+        $admin = $this->modelAdmin->getAllAdmin();
+        $this->view->showOptionsUsers($admin);
+    }
+
+    public function addUsers(){
+        $this->checklogged();
+
+        $admin = $this->modelAdmin->getAllAdmin();
+        $this->view->showAddAdmin();
+    }
+
+    public function saveUser(){
+        $this->checklogged();
+
+        if (empty($_POST['apellido_nombre']  
+            || empty($_POST['nombre_usuario']))
+            || empty($_POST['pass'])){
+            $this->view->showAddAdmin("Debe completar los campos");
+
+        }else{
+           $nombre = $_POST['apellido_nombre'];
+           $user = $_POST['nombre_usuario'];
+           $pass = $_POST['pass'];
+           $this->modelAdmin->insert_user($nombre, $user, $pass);
+           header('Location: ' . BASE_URL . 'ABMuser');     
+        }
+    }
+
+    public function deleteUser($id){
+        $this->checklogged();
+
+        $this->modelAdmin->delete_user($id);
+         header('Location: ' . BASE_URL . 'ABMuser');
+      }
 }

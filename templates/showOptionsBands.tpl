@@ -1,8 +1,15 @@
 {include 'templates/header.tpl'}
     
-    <div>
-        <a class="navbar-brand" href="cerrar_sesion"><b>Cerrar Sesion</b></a>
-    </div>
+    <div class="container">
+     <div class="row">
+        <div class="col-12">
+            <nav class="navbar navbar-light bg-light">
+                <a class="navbar-brand">Administrador</a>
+                <a class="btn btn-outline-dark" href="cerrar_sesion">Logout</a>
+            </nav>
+        </div>
+        </div>
+     </div>
     <div>
         <h1>ABM DE LAS BANDAS</h1>
         <b class="navbar-brand">En esta sección usted podrá hacer ALTAS, BAJAS y MODIFICACIONES de Bandas.</b><br>
