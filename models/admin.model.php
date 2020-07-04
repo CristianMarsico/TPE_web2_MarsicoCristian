@@ -41,12 +41,23 @@ class AdminModel
         return $nombreCD;
     }
 
-    public function insert($nombre, $album, $canciones, $año, $generos)
+    public function insert($nombre, $album, $canciones, $año, $generos, $imagen = null)
     {
+        $pathImg = null;
+        
+        if($imagen){
+            $pathImg= $this->uploadImage($imagen);
+        }
         $db = $this->conection->createConexion();
-        $sentencia = $db->prepare('INSERT INTO bands (name, album, songs, year, id_g_fk) VALUES (?,?,?,?,?)');
-        return $sentencia->execute([$nombre, $album, $canciones, $año, $generos]);
+        $sentencia = $db->prepare('INSERT INTO bands (name, album, songs, year, id_g_fk, image) VALUES (?,?,?,?,?, ?)');
+        return $sentencia->execute([$nombre, $album, $canciones, $año, $generos, $pathImg]);
         //  $sentencia->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    private function uploadImage($imagen){
+        $target = 'upload/tasks/' . uniqid() . '.jpg';
+        move_uploaded_file($imagen, $target); //paso imagen y digo donde iria
+        return $target;
     }
 
     public function insert_user($nombre, $user, $pass)
